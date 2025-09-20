@@ -74,9 +74,9 @@ export async function getTransactionSummary(req, res) {
         const expenses = await db`SELECT COALESCE(SUM(amount), 0) AS expenses FROM transactions WHERE user_id = ${userId} AND amount < 0`;
 
         res.status(200).json({
-            balance: balance[0].balance,
-            income: income[0].income,
-            expenses: expenses[0].expenses
+            balance: balance[0].balance || 0,
+            income: income[0].income || 0,
+            expenses: expenses[0].expenses || 0
         });
 
 
